@@ -43,42 +43,34 @@ namespace FizzBuzz
 
         }
 
+        int FuncChange(int size, int totMoney, out int prevChange)
+        {
+            var change = totMoney % size; //Checks remainder
+            int boxNum = totMoney - change; //Removes the remainder
+            boxNum = boxNum / size; //Get total from division
+            prevChange = change; //Sets as leftover change
+            return boxNum;
+        }
+
         private void MoneyBtn_Click(object sender, EventArgs e)
         {
-            int change = 0;
-            int prevChange = Int32.Parse(TotMoneyBox.Text);
-            int boxNum = 0;
+            int myChange;
 
-            int FuncChange(int dollar) {
-                change = prevChange % dollar;
-                boxNum = prevChange - change;
-                prevChange = prevChange - boxNum;
-                boxNum = boxNum / dollar;
-                return(change);
-            }
+            HundredBox.Text = "" + FuncChange(100, Convert.ToInt32(TotMoneyBox.Text), out myChange);
 
-            FuncChange(100);
-            HundredBox.Text = "" + boxNum;
+            FiftyBox.Text = "" + FuncChange(50, myChange, out myChange);
 
-            FuncChange(50);
-            FiftyBox.Text = "" + boxNum;
+            TwentyBox.Text = "" + FuncChange(20, myChange, out myChange);
 
-            FuncChange(20);
-            TwentyBox.Text = "" + boxNum;
+            TenBox.Text = "" + FuncChange(10, myChange, out myChange);
 
-            FuncChange(10);
-            TenBox.Text = "" + boxNum;
+            FiveBox.Text = "" + FuncChange(5, myChange, out myChange);
 
-            FuncChange(5);
-            FiveBox.Text = "" + boxNum;
+            TwoBox.Text = "" + FuncChange(2, myChange, out myChange);
 
-            FuncChange(2);
-            TwoBox.Text = "" + boxNum;
+            OneBox.Text = "" + FuncChange(1, myChange, out myChange);
 
-            FuncChange(1);
-            OneBox.Text = "" + boxNum;
-
-            /*
+            /* By using a function I avoid all this
             change = prevChange % 100;
             boxNum = prevChange - change;
             prevChange = prevChange - boxNum;
